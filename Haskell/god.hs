@@ -274,4 +274,4 @@ compararIesimos x i
 --------------------------------
 
 -- a)
-f1 :: Integer -> Integer
+-- :: Integer -> Integer

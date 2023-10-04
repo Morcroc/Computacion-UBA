@@ -1,3 +1,4 @@
+
 -- ACTIVIDAD 2
 ----------------------
 
@@ -439,7 +440,7 @@ sumarElPrimero :: [Integer] -> [Integer]
 sumarElPrimero (x:xs) = sumarN x (x:xs)
 -- 6)
 sumarElUltimo :: [Integer] -> [Integer]
-sumarElUltimo (xs) = sumarN (ultimo xs) xs
+sumarElUltimo xs = sumarN (ultimo xs) xs
 -- 7)
 pares :: [Integer] -> [Integer]
 pares [] = []
@@ -511,16 +512,39 @@ sacarPrimerPalabra (x:xs)
     | otherwise = sacarPrimerPalabra xs
 -- 4)
 palabraMasLarga :: [Char] -> [Char]
-palabraMasLarga xs = palabraMasLargaAux (sacarEspaciosInFin (sacarEspaciosRepetidos xs))
+palabraMasLarga xs = compararPalabras (palabras xs)
 
-palabraMasLargaAux :: [Char] -> [Char]
-palabraMasLargaAux [] = []
---palabraMasLargaAux xs = 
+compararPalabras :: [[Char]] -> [Char]
+compararPalabras [x] = x
+compararPalabras (x:y:xs)
+    | longitud x >= longitud y = compararPalabras (x:xs)
+    | otherwise = compararPalabras (y:xs)
+-- 5)
+aplanar :: [[Char]] -> [Char]
+aplanar [] = []
+aplanar (x:xs) = x ++ aplanar xs
+-- 6)
+aplanarConEspacios :: [[Char]] -> [Char]
+aplanarConEspacios [] = []
+aplanarConEspacios [x] = x
+aplanarConEspacios (x:xs) = x ++ " " ++ aplanarConEspacios xs
+-- 7)
+aplanarConNEspacios :: [[Char]] -> Integer -> [Char]
+aplanarConNEspacios [] _ = []
+aplanarConNEspacios [x] _ = x
+aplanarConNEspacios (x:xs) n = x ++ nEspacios n ++ aplanarConNEspacios xs n
+
+nEspacios :: Integer -> [Char]
+nEspacios 0 = []
+nEspacios n = ' ' : nEspacios (n-1)
 
 
 -- ACTIVIDAD 5
 ----------------------------
 
+-- 1)
+sumaAcumulada :: (Num t) => [t] -> [t]
+sumaAcumulada [] = []
 -- 2)
 {-esPrimo :: Integer -> Bool
 esPrimo 1 = False
@@ -543,5 +567,6 @@ primosDivisores d n
 
 descomponerEnPrimos :: [Integer] -> [[Integer]]
 descomponerEnPrimos [] = [[]]
-descomponerEnPrimos (x:xs) = descEnPrimos x : descomponerEnPrimos xs-}
+descomponerEnPrimos (x:xs) = descEnPrimos x : descomponerEnPrimos xs
 
+-}
