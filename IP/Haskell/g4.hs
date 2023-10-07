@@ -209,9 +209,18 @@ esPrimo :: Integer -> Bool
 esPrimo n = menorDivisor n == n
 
 -- c)
--- aca podria buscarse un divisor con la segunda variable incremental, no?
 sonCoprimos :: Integer -> Integer -> Bool
-sonCoprimos n m 
-    | n == m = True
-    | 
+sonCoprimos n m = mcd n m == 1
+
+mcd :: Integer -> Integer -> Integer
+mcd n m = algoDeEuclides n m
+
+algoDeEuclides:: Integer -> Integer -> Integer
+algoDeEuclides a b 
+    | b == 0 = a
+    | otherwise = algoDeEuclides b (mod a b)
+
+-- d)
+--nEsimoPrimo :: Integer -> Integer
+
 
