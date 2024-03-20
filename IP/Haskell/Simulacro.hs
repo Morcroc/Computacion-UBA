@@ -1,4 +1,3 @@
-module Abbott where
 
 p1 = "Juan"
 p2 = "Sol"

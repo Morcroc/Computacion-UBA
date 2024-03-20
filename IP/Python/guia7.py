@@ -1,6 +1,7 @@
 import array
 import math
 import random
+import numpy as np
 # EJERCICIO 1
 #######################
 print("\nEJERCICIO 1")
@@ -29,7 +30,7 @@ a = array.array('i', [1,2,3,4,5,6,7,8,9,10,0])
 print(pertenece_for(a, 6))
 print(pertenece_for(a, 12))
 
-def pertenece_simple(lista:[int], e:int) -> bool:
+def pertenece_simple(lista, e) -> bool:
     return e in lista
 
 print("pertenece simple? " + str(pertenece_simple(a, 6)))
@@ -71,7 +72,7 @@ print(suma_total(b))
 print(suma_total(a))
 
 # 4)
-def ordenados(lista:[int]) -> bool:
+def ordenados(lista:"list[int]") -> bool:
     ordenada:bool = True
     i = 0
     while (i < len(lista) - 1 and ordenada):
@@ -377,3 +378,68 @@ def yes_no_decision(promt:str) -> bool:
 
 
 #print(siete_y_medio())
+
+
+# EJERCICIO 5
+##################
+print("\nEJERCICIO 5")
+# 1)
+def pertenece_a_cada_uno(s:"list[list[int]]", e:int, res:"list[bool]"):
+    res.clear()
+    for t in s:
+        res.append(pertenece_simple(t, e))
+
+chequeo = []
+s = [[1,2,3,4,5],[2,4,6,8,10],[3,6,9,12,15],[1,3,5,6,8]]
+pertenece_a_cada_uno(s, 1, chequeo)
+print(chequeo)
+pertenece_a_cada_uno(s, 2, chequeo)
+print(chequeo)
+pertenece_a_cada_uno(s, 3, chequeo)
+print(chequeo)
+
+# 2)
+def es_matriz(s:"list[list[int]]") -> bool:
+    res:bool = len(s) > 0 and len(s[0]) > 0
+    i:int = 0
+    while(i < len(s) and res):
+        res = len(s[i]) == len(s[0])
+        i += 1
+
+    return res
+
+t = [[1,2,3,4],[2,4,6,8],[6,3,9,12],[1,3,5]]
+print("Es " + str(s) + " matriz? " + str(es_matriz(s)))
+print("Es " + str(t) + " matriz? " + str(es_matriz(t)))
+
+# 3)
+def filas_ordenadas(m:"list[list[int]]", res:"list[bool]"):
+    res.clear()
+    for l in m:
+        res.append(ordenados(l))
+
+
+filas_ordenadas(s, chequeo)
+print(chequeo)
+filas_ordenadas(t, chequeo)
+print(chequeo)
+
+# 4)
+def potencia_de_matriz_random(d:int, p:int) -> "np.array[float]":
+    m = np.random.randint(1, 4, (d,d))
+    print(f"Se va a elevar por {p} a la matriz\n{m}")
+    res = np.copy(m)# aca tengo que hacer la sumatoria de cada posicion de la matriz
+    for _ in range(1, p):
+        m_aux = np.copy(res)
+        for i in range(m.shape[0]):
+            for j in range(m.shape[1]):
+                suma = 0
+                for k in range(0, d):
+                    suma += m_aux[i,k] * m[k,j]
+                res[i,j] = suma
+
+    return res
+
+
+print(potencia_de_matriz_random(2, 3))
+print(potencia_de_matriz_random(7, 3))
